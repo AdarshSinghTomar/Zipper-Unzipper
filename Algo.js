@@ -62,17 +62,17 @@ class HuffmanCoder{   // using huffman algorithm
 
         this.heap = new BinaryHeap();
 
-        const mp = new Map();
+        const mp = new Map();         // storing the frequency
         for(let i=0;i<data.length;i++){
             if(data[i] in mp){
-                mp[data[i]] = mp[data[i]] + 1;
+                mp[data[i]] = mp[data[i]] + 1;   // here key is frequency and  character is value
             } else{
                 mp[data[i]] = 1;
             }
         }
 
         for(const key in mp){
-            this.heap.insert([-mp[key], key]);
+            this.heap.insert([-mp[key], key]); // here inserting frequency in negative to get min
         }
 
         while(this.heap.size() > 1){
@@ -87,24 +87,23 @@ class HuffmanCoder{   // using huffman algorithm
         this.mappings = {};
         this.getMappings(huffman_encoder, "");
 
-        let binary_string = "";
+        let binary_string = "";         // creating a binary string from the original text using mappings of characters
         for(let i=0;i<data.length;i++) {
             binary_string = binary_string + this.mappings[data[i]];
         }
 
-        let rem = (8 - binary_string.length%8)%8;
-        let padding = "";
+        let rem = (8 - binary_string.length%8)%8;  // we can't store data in the form of bits so we need to store data in the form of characters
+        let padding = "";                           // so we need to add some padding zeroes to the binary string
         for(let i=0;i<rem;i++)
             padding = padding + "0";
         binary_string = binary_string + padding;
 
         let result = "";
         for(let i=0;i<binary_string.length;i+=8){
-            let num = 0;
-            for(let j=0;j<8;j++){
-                num = num*2 + (binary_string[i+j]-"0");
-            }
-            result = result + String.fromCharCode(num);
+            let temp=binary_string.slice(i,i+8).toString();
+             let digit=parseInt(temp,2);
+              result=result+String.fromCharCode(digit);         // this will give us cypher code which is kind of secure
+
         }
 
         let final_res = this.stringify(huffman_encoder) + '\n' + rem + '\n' + result;
