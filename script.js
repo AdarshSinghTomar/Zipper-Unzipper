@@ -24,7 +24,7 @@ onload = () => {
             return ;
         }
         let  [encoded, tree_structure, info]=coder.encode(text);
-        downloadFile(uploadedFile.name.split('.')[0]+'_encoded.txt'.encode);
+        downloadFile(uploadedFile.name.split('.')[0]+'_encoded.txt',encoded);
         treearea.innerText=tree_structure;
         treearea.style.marginTop="200px";
         temptext.innerText=info;
