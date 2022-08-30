@@ -1,5 +1,5 @@
-import { HuffmanCoder } from "./Algo";
-onload =() =>{
+import { HuffmanCoder } from "./Algo.js";
+onload = () => {
   const treearea=document.getElementById('treearea');
   const encode= document.getElementById('encode');
   const decode=document.getElementById('decode');
@@ -8,7 +8,7 @@ onload =() =>{
 
   const coder=new HuffmanCoder();
   upload.addEventListener("change",()=>{alert("File uploaded")});
-  encode.onclick =()=>{
+  encode.onclick =function () {
     const uploadedFile=upload.files[0];
     if(uploadedFile===undefined)
     {
@@ -16,7 +16,7 @@ onload =() =>{
         return ;
     }
     const fileReader= new FileReader();
-    fileReader.onload =(fileLoadedEvent)=>{
+    fileReader.onload =function (fileLoadedEvent){
         const text=fileLoadedEvent.target.result;
         if(text.length==0)
         {
@@ -26,13 +26,13 @@ onload =() =>{
         let  [encoded, tree_structure, info]=coder.encode(text);
         downloadFile(uploadedFile.name.split('.')[0]+'_encoded.txt'.encode);
         treearea.innerText=tree_structure;
-        treearea.style.marginTop="2000px";
+        treearea.style.marginTop="200px";
         temptext.innerText=info;
     };
     fileReader.readAsText(uploadedFile,"UTF-8");
   };
-  decode.onclick = function () {
 
+  decode.onclick = function () {
     const uploadedFile = upload.files[0];
     if(uploadedFile===undefined){
         alert("No file uploaded !");
